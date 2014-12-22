@@ -9,9 +9,17 @@
  */
 angular.module('beerdemoApp')
   .controller('BeerCtrl', function ($scope) {
-    $scope.beers = [
-      'Big Hugs',
-      'Zombie Dust',
-      'Bourbon County Stout'
-    ];
-  });
+    $scope.beers = [];
+
+    $scope.submit = function() {
+      var searchResults = [
+        'Big Hugs',
+        'Zombie Dust',
+        'Bourbon County Stout'
+      ];
+      $scope.beers = searchResults;
+      $scope.text = '';
+    };
+
+  })
+;
