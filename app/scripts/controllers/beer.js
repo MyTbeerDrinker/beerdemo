@@ -21,6 +21,9 @@ angular.module('beerdemoApp')
               brewery = data.beers[i].brewery.name;
             $scope.beers.push(brewery + ' - ' + beer);
           }
+          if (data.beers.length === 0) {
+            $scope.beers.push('No Results');
+          }
         });
 
       $scope.text = '';
