@@ -24,7 +24,9 @@ angular.module('beerdemoApp')
     };
 
     breweryDBFactory.details = function (id) {
-      return $http.jsonp(urlBase + 'beer/' + id);
+      var urlPath = 'beers/' + encodeURIComponent(id) + '.json';
+      var url = urlBase + urlPath + '?callback=JSON_CALLBACK';
+      return $http.jsonp(url);
     };
 
     return breweryDBFactory;

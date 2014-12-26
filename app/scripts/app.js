@@ -18,6 +18,10 @@ angular
         templateUrl: 'views/beer.html',
         controller: 'BeerCtrl'
       })
+      .when('/beer/:id', {
+        templateUrl: 'views/beer_details.html',
+        controller: 'BeerDetailsCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

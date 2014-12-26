@@ -9,26 +9,37 @@
  */
 angular.module('beerdemoApp')
   .controller('BeerCtrl', ['$scope','breweryDBFactory', function ($scope, breweryDBFactory) {
-    $scope.beers = [];
+
+    $scope.reset= function() {
+      $scope.beers = [];
+      $scope.noResults = false;
+      $scope.text = '';
+    };
 
     $scope.submit = function() {
-      $scope.beers = [];
-
       breweryDBFactory.search($scope.text)
         .success(function (data) {
-          for (var i = 0; i < data.beers.length; i++) {
-            var beer = data.beers[i].name,
-              brewery = data.beers[i].brewery.name;
-            $scope.beers.push(brewery + ' - ' + beer);
+          if (data.beers.length > 0) {
+            $scope.beers = data.beers;
           }
-          if (data.beers.length === 0) {
-            $scope.beers.push('No Results');
+          else {
+            $scope.noResults = true;
           }
         });
-
-      $scope.text = '';
-
     };
+
+    $scope.reset();
+  }])
+
+  .controller('BeerDetailsCtrl', ['$scope', '$routeParams', 'breweryDBFactory',
+    function ($scope, $routeParams, breweryDBFactory) {
+    $scope.beer = {};
+    $scope.beerId = $routeParams.id;
+
+    breweryDBFactory.details($scope.beerId)
+        .success(function (data) {
+          $scope.beer = data;
+        });
 
   }])
 ;
